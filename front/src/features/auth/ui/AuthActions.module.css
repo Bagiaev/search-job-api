@@ -1,0 +1,11 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.linkReset {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+}
