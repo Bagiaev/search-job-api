@@ -1,25 +1,23 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { HomePage } from "@/pages/home";
 import { AuthPage } from "@/pages/auth";
-import { ResumeCreatePage } from "@/pages/resume-create";
-import { TermsPage } from "@/pages/legal/terms";
+import { HomePage } from "@/pages/home";
 import { PrivacyPage } from "@/pages/legal/privacy";
+import { TermsPage } from "@/pages/legal/terms";
+import { ResumeCreatePage } from "@/pages/resume-create";
 import { SearchPage } from "@/pages/search";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export function AppRouter() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/resume/create" element={<ResumeCreatePage />} />
+    return <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/resume/create" element={<ResumeCreatePage />} />
 
-        <Route path="/search" element={<SearchPage />} />
+            <Route path="/search" element={<SearchPage />} />
 
-        {/* Legal */}
-        <Route path="/legal/terms" element={<TermsPage />} />
-        <Route path="/legal/privacy" element={<PrivacyPage />} />
-      </Routes>
+            {/* Legal */}
+            <Route path="/legal/terms" element={<TermsPage />} />
+            <Route path="/legal/privacy" element={<PrivacyPage />} />
+        </Routes>
     </BrowserRouter>
-  );
 }
