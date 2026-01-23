@@ -1,30 +1,41 @@
 package main
 
 import (
+	"context"
+	"search-job/internal/config"
 	"search-job/internal/service"
-	logs "search-job/pkg"
+	"search-job/pkg/logs"
+	"search-job/pkg/postgres"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 )
 
 func main() {
-	// создаем логгер
+	ctx := context.Background()
+	defer ctx.Done()
+
 	logger := logs.NewLogger(false)
 
-	// подключаемся к базе
-	db, err := PostgresConnection()
+	cfg, err := config.NewConfig()
 	if err != nil {
 		logger.Fatal(err)
 	}
 
+	db, err := postgres.Connect(ctx, cfg.Postgres)
+	if err != nil {
+		logger.Fatal(err)
+	}
+	log.Info("Postgres successfully connected")
+
 	svc := service.NewService(db, logger)
 
 	router := echo.New()
-	// создаем группу api
+
 	api := router.Group("api")
 
 	api.GET("/resume/:id", svc.GetResume)
 	api.POST("/resume", svc.CreateResume)
-	// запускаем сервер, чтобы слушал 8000 порт
-	router.Logger.Fatal(router.Start(":8000"))
+
+	router.Logger.Fatal(router.Start(":" + cfg.GetWebPort()))
 }

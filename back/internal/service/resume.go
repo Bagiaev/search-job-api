@@ -17,7 +17,7 @@ func (s *Service) CreateResume(c echo.Context) error {
 	}
 
 	repo := s.resumeRepo
-	err = repo.RCreateResume(&resume)
+	err = repo.RCreateResume(c.Request().Context(), &resume)
 	if err != nil {
 		s.logger.Error(err)
 		return c.JSON(s.NewError(InternalServerError))
@@ -35,7 +35,7 @@ func (s *Service) GetResume(c echo.Context) error {
 
 	repo := s.resumeRepo
 
-	report, err := repo.RGetResumeById(id)
+	report, err := repo.RGetResumeById(c.Request().Context(), id)
 	if err != nil {
 		s.logger.Error(err)
 		return c.JSON(s.NewError(InternalServerError))

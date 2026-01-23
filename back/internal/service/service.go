@@ -1,8 +1,8 @@
 package service
 
 import (
-	"database/sql"
 	"search-job/internal/resume"
+	"search-job/pkg/postgres"
 
 	"github.com/labstack/echo/v4"
 )
@@ -13,13 +13,13 @@ const (
 )
 
 type Service struct {
-	db     *sql.DB
+	db     *postgres.DB
 	logger echo.Logger
 
 	resumeRepo *resume.Repo
 }
 
-func NewService(db *sql.DB, logger echo.Logger) *Service {
+func NewService(db *postgres.DB, logger echo.Logger) *Service {
 	svc := &Service{
 		db:     db,
 		logger: logger,
@@ -29,7 +29,7 @@ func NewService(db *sql.DB, logger echo.Logger) *Service {
 	return svc
 }
 
-func (s *Service) initRepositories(db *sql.DB) {
+func (s *Service) initRepositories(db *postgres.DB) {
 	s.resumeRepo = resume.NewRepo(db)
 }
 

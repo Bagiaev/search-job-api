@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.resume (
     email       TEXT NOT NULL,
     phone       TEXT NOT NULL,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
-);
+); 
 
 CREATE OR REPLACE VIEW public.notes AS
 SELECT
